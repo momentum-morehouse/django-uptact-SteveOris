@@ -50,3 +50,4 @@ def delete_contact(request, pk):
 def list_notes(request, pk):
   contact = get_object_or_404(Contact, pk=pk)
   notes = Note.objects.filter(contact=contact)
+  return render(request, 'contacts/contact_details.html', {'notes': notes, 'contact': contact})
