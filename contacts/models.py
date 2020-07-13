@@ -9,7 +9,6 @@ class Contact(models.Model):
         message="Phone number must be entered in the format: '+9999999999'.")
 
     name = models.CharField(max_length=255)
-    birthdate = models.DateField(null=True, blank=True)
     email = models.EmailField(null=True, blank=True)
     phone_number = models.CharField(max_length=11,
                                     validators=[phone_regex],
@@ -20,9 +19,10 @@ class Contact(models.Model):
     city = models.CharField(max_length=255, null=True, blank=True)
     state = USStateField(null=True, blank=True)
     zip_code = USZipCodeField(null=True, blank=True)
+    birthday = models.DateField(null=True, blank=True)
+
 
 class Note(models.Model):
-  contact = models.ForeignKey(Contact, on_delete=models.CASCADE)
-  text = models.TextField(max_length=255, null=True, blank=True)
-  notedate = models.DateTimeField(auto_now_add=True)
-  
+    contact = models.ForeignKey(Contact, blank=True, null=True, on_delete=models.CASCADE, related_name= "notes")
+    note = models.TextField()
+    date = models.DateTimeField(auto_now_add=True)

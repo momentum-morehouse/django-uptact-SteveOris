@@ -7,7 +7,6 @@ class ContactForm(forms.ModelForm):
         model = Contact
         fields = [
             'name',
-            'birthdate',
             'address_1',
             'address_2',
             'city',
@@ -15,12 +14,27 @@ class ContactForm(forms.ModelForm):
             'zip_code',
             'phone_number',
             'email',
+            'birthday',
         ]
 
-class NoteForm(forms.ModelForm):
-  class Meta:
-    fields = [
-      'text',
-      'date'
+        widgets = {
+            'birthday':
+                forms.DateInput(
+                format=('%m/%d/%Y'),
+                attrs={
+                    'class': 'form-control',
+                    'placeholder': 'Select a date',
+                    'type': 'date'
+                }),
+        }
 
-    ]
+class NoteForm(forms.ModelForm):
+    class Meta:
+        model = Note
+        fields =[
+            'note'
+        ]
+    
+
+
+   
